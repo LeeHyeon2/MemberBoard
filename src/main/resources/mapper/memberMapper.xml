@@ -4,7 +4,13 @@
 
 
 <mapper namespace="Member">
-
+    <insert id="save" parameterType="member">
+        insert into memberBoard_member(memberId,memberPassword,memberName,memberEmail,memberMobile,memberProfile)
+        values (#{memberId},#{memberPassword},#{memberName},#{memberEmail},#{memberMobile},#{memberProfile})
+    </insert>
+    <select id="duplicate" parameterType="String" resultType="String">
+        select memberId from memberBoard_member where memberId = #{memberId}
+    </select>
 </mapper>
 
 
