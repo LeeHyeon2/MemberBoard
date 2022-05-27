@@ -46,4 +46,7 @@ public class MemberRepository {
     }
 
 
+    public void delete(int id) {
+        sql.delete("Member.delete",id);
+    }
 }

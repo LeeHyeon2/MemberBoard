@@ -22,7 +22,7 @@
         <ul class="nav nav-pills">
             <li class="nav-item"><a href="/member/myPageUpdate?id=${sessionScope.loginId}" class="nav-link active" aria-current="page">내 정보(수정)</a></li>
             <li class="nav-item"><a href="#" class="nav-link ">글쓰기</a></li>
-            <li class="nav-item"><a href="../main.jsp" class="nav-link">Main</a></li>
+            <li class="nav-item"><a href="/main" class="nav-link">Main</a></li>
             <li class="nav-item"><a href="/member/logout" class="nav-link">로그아웃</a></li>
         </ul>
     </header>

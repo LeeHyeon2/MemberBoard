@@ -104,5 +104,20 @@ public class MemberController {
         return "/member/findAll";
     }
 
+    @GetMapping("/detail")
+    public String findById(@RequestParam("id") int id , Model model){
+        MemberDTO memberDTO = memberService.findById(id);
+        model.addAttribute("member",memberDTO);
+        return "/member/detail";
+    }
+
+    @GetMapping("delete")
+    public String delete(@RequestParam("id") int id , HttpSession session){
+        memberService.delete(id);
+        if(session.getAttribute("loginMemberId").equals("admin")){
+            return "redirect:/member/findAll";
+        }
+        return "/index";
+    }
 
 }

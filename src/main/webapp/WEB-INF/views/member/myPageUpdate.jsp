@@ -37,6 +37,7 @@
                 <input class="mb-2" type="file" name="memberFile" value="${myDTO.memberProfile}">
                 <div></div>
                 <input class="btn btn-primary" type="button" onclick="passwordCheck()" value="변경">
+                <input class="btn btn-primary" type="button" onclick="delete1()" value="회원 탈퇴">
             </form>
         </div>
     </div>
@@ -69,6 +70,19 @@
                 updateForm.submit();
             }
         }
+    }
+
+    const delete1 = () => {
+        let checkPw = document.getElementById("pw").value;
+        const memberPassword = '${myDTO.memberPassword}';
+
+        if(checkPw != memberPassword){
+            alert("비밀번호가 일치하지 않습니다!")
+        }else{
+            location.href = "/member/delete?id=${myDTO.id}";
+            alert("회원탈퇴 되었습니다!")
+        }
+
     }
 </script>
 </html>

@@ -37,6 +37,9 @@
         select * from memberBoard_member order by id desc limit #{start}, #{limit}
     </select>
 
+    <delete id="delete" parameterType="int">
+        delete from memberBoard_member where id = #{id}
+    </delete>
 </mapper>
 
 

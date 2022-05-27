@@ -100,4 +100,7 @@ public class MemberService {
     }
 
 
+    public void delete(int id) {
+        memberRepository.delete(id);
+    }
 }

@@ -14,5 +14,6 @@
 </head>
 <body>
 <jsp:include page="layout/mainHeader.jsp" flush="false"></jsp:include>
+<h2>전체 글 리스트</h2>
 </body>
 </html>
