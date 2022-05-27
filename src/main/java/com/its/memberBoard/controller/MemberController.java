@@ -56,7 +56,8 @@ public class MemberController {
                 return "main";
             }
         }else{
-            return "redirect:/member/login";
+            model.addAttribute("msg","fail");
+            return "/member/login";
         }
     }
     @GetMapping("/logout")

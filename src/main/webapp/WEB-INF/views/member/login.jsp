@@ -8,6 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
     <style>
         header{
             display:flex;
@@ -77,9 +78,7 @@
 <header>
     <h2>Login</h2>
 </header>
-
 <form action="/member/login" method="POST">
-
 
     <div class="input-box">
         <input id="memberId" type="text" name="memberId" placeholder="아이디">
@@ -87,12 +86,18 @@
     </div>
 
     <div class="input-box">
-        <input id="memberpassword" type="password" name="memberPassword" placeholder="비밀번호">
-        <label for="memberpassword">비밀번호</label>
+        <input id="memberPassword" type="password" name="memberPassword" placeholder="비밀번호">
+        <label for="memberPassword">비밀번호</label>
     </div>
     <input type="submit" value="로그인">
-
 </form>
 
 </body>
+<script>
+    let loginResult = "";
+    loginResult = '${msg}';
+    if(loginResult == "fail"){
+        alert("아이디 혹은 비밀번호가 다릅니다!!")
+    }
+</script>
 </html>
