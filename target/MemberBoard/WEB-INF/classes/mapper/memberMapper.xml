@@ -24,6 +24,19 @@
     <update id="update" parameterType="member">
         update memberBoard_member set memberName = #{memberName} , memberEmail = #{memberEmail} , memberMobile = #{memberMobile} , memberProfile = #{memberProfile} where memberId = #{memberId}
     </update>
+
+    <select id="findAll" resultType="member">
+        select * from memberBoard_member
+    </select>
+
+    <select id="count" resultType="int">
+        select count(id) from memberBoard_member
+    </select>
+
+    <select id="pagingList" parameterType="java.util.HashMap" resultType="member">
+        select * from memberBoard_member order by id desc limit #{start}, #{limit}
+    </select>
+
 </mapper>
 
 

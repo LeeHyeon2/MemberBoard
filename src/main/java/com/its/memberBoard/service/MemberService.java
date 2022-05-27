@@ -1,6 +1,7 @@
 package com.its.memberBoard.service;
 
 import com.its.memberBoard.dto.MemberDTO;
+import com.its.memberBoard.dto.PageDTO;
 import com.its.memberBoard.repository.MemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -8,6 +9,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Service
 public class MemberService {
@@ -65,4 +69,35 @@ public class MemberService {
 
         memberRepository.update(memberDTO);
     }
+
+
+    private static final int PAGE_LIMIT = 5; // 한 페이지에 보여줄 글 갯수
+    private static final int BLOCK_LIMIT = 3; // 페이지 버튼의 갯수
+    public List<MemberDTO> findAll(int page) {
+        int pagingStart = (page-1) * PAGE_LIMIT;
+        Map<String, Integer> pagingParam = new HashMap<>();
+        pagingParam.put("start", pagingStart);
+        pagingParam.put("limit", PAGE_LIMIT);
+        List<MemberDTO> pagingList = memberRepository.pagingList(pagingParam);
+
+        return pagingList;
+    }
+
+    public PageDTO paging(int page) {
+        // 필요한 전체 페이지의 갯수
+        int memberCount = memberRepository.memberCount();
+        int maxPage = (int)(Math.ceil((double)memberCount / PAGE_LIMIT));
+        int startPage = (((int)(Math.ceil((double)page / BLOCK_LIMIT))) - 1) * BLOCK_LIMIT + 1;
+        int endPage = startPage + BLOCK_LIMIT - 1;
+        if(endPage > maxPage)
+            endPage = maxPage;
+        PageDTO paging = new PageDTO();
+        paging.setPage(page);
+        paging.setStartPage(startPage);
+        paging.setEndPage(endPage);
+        paging.setMaxPage(maxPage);
+        return paging;
+    }
+
+
 }

@@ -1,6 +1,7 @@
 package com.its.memberBoard.controller;
 
 import com.its.memberBoard.dto.MemberDTO;
+import com.its.memberBoard.dto.PageDTO;
 import com.its.memberBoard.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.List;
 
 @Controller
 @RequestMapping("/member")
@@ -46,7 +48,12 @@ public class MemberController {
         MemberDTO login = memberService.login(memberDTO);
         if(login != null){
             if(login.getMemberId().equals("admin")){
-                return "admin";
+                model.addAttribute("login", login);
+                session.setAttribute("loginMemberId", login.getMemberId());
+                session.setAttribute("loginMemberPassword", login.getMemberPassword());
+                session.setAttribute("loginMemberName", login.getMemberName());
+                session.setAttribute("loginId", login.getId());
+                return "member/admin";
             }else {
                 model.addAttribute("login", login);
                 session.setAttribute("loginMemberId", login.getMemberId());
@@ -59,6 +66,10 @@ public class MemberController {
             model.addAttribute("msg","fail");
             return "/member/login";
         }
+    }
+    @GetMapping("/admin")
+    public String admin(){
+        return "/member/admin";
     }
     @GetMapping("/logout")
     public String logout(HttpSession session){
@@ -83,4 +94,15 @@ public class MemberController {
         memberService.update(memberDTO);
         return "redirect:/member/myPage";
     }
+
+    @GetMapping("/findAll")
+    public String findAll(@RequestParam(value="page", required=false, defaultValue="1") int page, Model model){
+        List<MemberDTO> memberDTOList = memberService.findAll(page);
+        PageDTO paging = memberService.paging(page);
+        model.addAttribute("memberList",memberDTOList);
+        model.addAttribute("paging",paging);
+        return "/member/findAll";
+    }
+
+
 }

@@ -6,11 +6,13 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<link rel="stylesheet" href="/resources/css/bootstrap.min.css">
 <html>
 <head>
+    <jsp:include page="../layout/adminHeader.jsp" flush="false"></jsp:include>
     <title>admin</title>
 </head>
 <body>
-
+<h2>내가쓴글띄우기</h2>
 </body>
 </html>

@@ -97,7 +97,7 @@
     let loginResult = "";
     loginResult = '${msg}';
     if(loginResult == "fail"){
-        alert("1")
+        alert("아이디 혹은 비밀번호가 다릅니다!!")
     }
 </script>
 </html>
