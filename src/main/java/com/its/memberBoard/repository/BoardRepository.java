@@ -27,4 +27,17 @@ public class BoardRepository {
     public int boardCount() {
         return sql.selectOne("Board.count");
     }
+
+    public BoardDTO findById(int id) {
+        sql.update("Board.hits",id);
+        return sql.selectOne("Board.findById",id);
+    }
+
+    public void delete(int id) {
+        sql.delete("Board.delete",id);
+    }
+
+    public void update(BoardDTO boardDTO) {
+        sql.update("Board.update",boardDTO);
+    }
 }

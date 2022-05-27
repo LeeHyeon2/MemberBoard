@@ -20,6 +20,22 @@
     <select id="count" resultType="int">
         select count(id) from memberBoard_board
     </select>
+
+    <select id="findById" parameterType="int" resultType="board">
+        select * from memberBoard_board where id = #{id}
+    </select>
+
+    <update id="hits" parameterType="int">
+        update memberBoard_board set boardHits = boardHits + 1 where id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="int">
+        delete from memberBoard_board where id = #{id}
+    </delete>
+
+    <update id="update" parameterType="board">
+        update memberBoard_board set boardTitle = #{boardTitle} , boardContents = #{boardContents} where id = #{id}
+    </update>
 </mapper>
 
 

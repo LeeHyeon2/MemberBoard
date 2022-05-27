@@ -51,5 +51,37 @@ public class BoardController {
         }
     }
 
+    @GetMapping("/detail")
+    public String detail(@RequestParam("id") int id , Model model ,HttpSession session){
+        BoardDTO boardDTO = boardService.findById(id);
+        model.addAttribute("boardDTO",boardDTO);
+        String sessionCheck = (String) session.getAttribute("loginMemberId");
+        if(sessionCheck == null){
+            return "detail";
+        }else if(sessionCheck.equals("admin")){
+            return "/member/adminDetail";
+        }else{
+            return "/member/myPageDetail";
+        }
+    }
 
+    @GetMapping("/delete")
+    public String delete(@RequestParam("id") int id , HttpSession session){
+        boardService.delete(id);
+        return "redirect:/board/findAll";
+    }
+
+    @GetMapping("/update")
+    public String updateForm(@RequestParam("id") int id , Model model ){
+        BoardDTO boardDTO = boardService.findById(id);
+        model.addAttribute("boardDTO",boardDTO);
+        return "/board/update";
+    }
+
+    @PostMapping("update")
+    public String update(@ModelAttribute BoardDTO boardDTO){
+        System.out.println("boardDTO = " + boardDTO);
+        boardService.update(boardDTO);
+        return "redirect:/board/findAll";
+    }
 }

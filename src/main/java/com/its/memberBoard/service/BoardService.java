@@ -64,4 +64,16 @@ public class BoardService {
         paging.setMaxPage(maxPage);
         return paging;
     }
+
+    public BoardDTO findById(int id) {
+        return boardRepository.findById(id);
+    }
+
+    public void delete(int id) {
+        boardRepository.delete(id);
+    }
+
+    public void update(BoardDTO boardDTO) {
+        boardRepository.update(boardDTO);
+    }
 }
