@@ -22,12 +22,11 @@
         <ul class="nav nav-pills">
             <li class="nav-item"><a href="/member/save" class="nav-link active" aria-current="page">회원가입</a></li>
             <li class="nav-item"><a href="/member/login" class="nav-link ">로그인</a></li>
-            <li class="nav-item"><a href="#" class="nav-link">글 목록</a></li>
+            <li class="nav-item"><a href="/board/findAll" class="nav-link">글 목록</a></li>
         </ul>
     </header>
 </div>
 
 <div class="b-example-divider"></div>
-
 </body>
 </html>

@@ -35,6 +35,8 @@ public class MemberService {
         //5
         if(!memberFile.isEmpty()){
             memberFile.transferTo(new File(savePath));
+        }else {
+            memberDTO.setMemberProfile(null);
         }
         memberRepository.save(memberDTO);
     }
@@ -65,6 +67,8 @@ public class MemberService {
         //5
         if(!memberFile1.isEmpty()){
             memberFile1.transferTo(new File(savePath));
+        }else {
+            memberDTO.setMemberProfile(null);
         }
 
         memberRepository.update(memberDTO);

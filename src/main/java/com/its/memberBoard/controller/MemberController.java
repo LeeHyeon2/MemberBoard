@@ -111,7 +111,7 @@ public class MemberController {
         return "/member/detail";
     }
 
-    @GetMapping("delete")
+    @GetMapping("/delete")
     public String delete(@RequestParam("id") int id , HttpSession session){
         memberService.delete(id);
         if(session.getAttribute("loginMemberId").equals("admin")){
