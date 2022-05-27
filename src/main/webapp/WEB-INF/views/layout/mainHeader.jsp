@@ -16,13 +16,13 @@
     <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
         <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
             <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"/></svg>
-            <span class="fs-4">MemberBoard</span>
+            <span class="fs-4">${sessionScope.loginMemberName}(님)</span>
         </a>
 
         <ul class="nav nav-pills">
-            <li class="nav-item"><a href="/member/save" class="nav-link active" aria-current="page">회원가입</a></li>
-            <li class="nav-item"><a href="/member/login" class="nav-link ">로그인</a></li>
-            <li class="nav-item"><a href="#" class="nav-link">글 목록</a></li>
+            <li class="nav-item"><a href="/member/myPage" class="nav-link active" aria-current="page">마이페이지</a></li>
+            <li class="nav-item"><a href="#" class="nav-link ">글쓰기</a></li>
+            <li class="nav-item"><a href="/member/logout" class="nav-link">로그아웃</a></li>
         </ul>
     </header>
 </div>
