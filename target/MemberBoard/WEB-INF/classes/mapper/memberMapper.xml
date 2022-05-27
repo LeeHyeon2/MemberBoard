@@ -8,12 +8,22 @@
         insert into memberBoard_member(memberId,memberPassword,memberName,memberEmail,memberMobile,memberProfile)
         values (#{memberId},#{memberPassword},#{memberName},#{memberEmail},#{memberMobile},#{memberProfile})
     </insert>
+
     <select id="duplicate" parameterType="String" resultType="String">
         select memberId from memberBoard_member where memberId = #{memberId}
     </select>
+
     <select id="login" parameterType="member" resultType="member">
         select * from memberBoard_member where memberId = #{memberId} and memberPassword = #{memberPassword}
     </select>
+
+    <select id="findById" parameterType="int" resultType="member">
+        select * from memberBoard_member where id = #{id}
+    </select>
+
+    <update id="update" parameterType="member">
+        update memberBoard_member set memberName = #{memberName} , memberEmail = #{memberEmail} , memberMobile = #{memberMobile} , memberProfile = #{memberProfile} where memberId = #{memberId}
+    </update>
 </mapper>
 
 

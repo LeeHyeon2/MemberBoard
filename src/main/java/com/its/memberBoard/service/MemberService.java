@@ -47,4 +47,22 @@ public class MemberService {
     public MemberDTO login(MemberDTO memberDTO) {
         return memberRepository.login(memberDTO);
     }
+
+    public MemberDTO findById(int id) {
+        return memberRepository.findById(id);
+    }
+
+    public void update(MemberDTO memberDTO) throws IOException {
+        MultipartFile memberFile1 = memberDTO.getMemberFile();
+        String memberProfile = memberFile1.getOriginalFilename(); //1,2
+        memberProfile = System.currentTimeMillis() + "-" + memberProfile; // 2.1
+        memberDTO.setMemberProfile(memberProfile); // 3
+        String savePath = "C:\\spring_img\\" + memberProfile; //4
+        //5
+        if(!memberFile1.isEmpty()){
+            memberFile1.transferTo(new File(savePath));
+        }
+
+        memberRepository.update(memberDTO);
+    }
 }

@@ -45,11 +45,16 @@ public class MemberController {
     public String login(@ModelAttribute MemberDTO memberDTO, Model model , HttpSession session){
         MemberDTO login = memberService.login(memberDTO);
         if(login != null){
-            model.addAttribute("login",login);
-            session.setAttribute("loginMemberId",login.getMemberId());
-            session.setAttribute("loginMemberPassword",login.getMemberPassword());
-            session.setAttribute("loginMemberName",login.getMemberName());
-            return "main";
+            if(login.getMemberId().equals("admin")){
+                return "admin";
+            }else {
+                model.addAttribute("login", login);
+                session.setAttribute("loginMemberId", login.getMemberId());
+                session.setAttribute("loginMemberPassword", login.getMemberPassword());
+                session.setAttribute("loginMemberName", login.getMemberName());
+                session.setAttribute("loginId", login.getId());
+                return "main";
+            }
         }else{
             return "redirect:/member/login";
         }
@@ -63,5 +68,18 @@ public class MemberController {
     @GetMapping("/myPage")
     public String myPageForm(){
         return "/member/myPage";
+    }
+
+    @GetMapping("/myPageUpdate")
+    public String myPageUpdateForm(@RequestParam("id") int id,Model model,HttpSession session){
+        MemberDTO findById = memberService.findById(id);
+        model.addAttribute("myDTO",findById);
+        return "/member/myPageUpdate";
+    }
+
+    @PostMapping("/update")
+    public String update(@ModelAttribute MemberDTO memberDTO) throws IOException {
+        memberService.update(memberDTO);
+        return "redirect:/member/myPage";
     }
 }

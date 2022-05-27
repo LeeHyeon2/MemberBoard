@@ -20,4 +20,13 @@ public class MemberRepository {
     public MemberDTO login(MemberDTO memberDTO) {
         return sql.selectOne("Member.login",memberDTO);
     }
+
+    public MemberDTO findById(int id) {
+        return sql.selectOne("Member.findById",id);
+    }
+
+    public void update(MemberDTO memberDTO) {
+        System.out.println("memberDTO = " + memberDTO);
+        sql.update("Member.update",memberDTO);
+    }
 }
