@@ -22,6 +22,8 @@
         <ul class="nav nav-pills">
             <li class="nav-item"><a href="/member/myPage" class="nav-link active" aria-current="page">마이페이지</a></li>
             <li class="nav-item"><a href="/member/findAll" class="nav-link ">회원 목록</a></li>
+            <li class="nav-item"><a href="/board/save" class="nav-link ">글 쓰기</a></li>
+            <li class="nav-item"><a href="/main" class="nav-link">Main</a></li>
             <li class="nav-item"><a href="/member/logout" class="nav-link">로그아웃</a></li>
         </ul>
     </header>
