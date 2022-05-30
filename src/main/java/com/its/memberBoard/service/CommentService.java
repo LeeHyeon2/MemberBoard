@@ -1,5 +1,6 @@
 package com.its.memberBoard.service;
 
+import com.its.memberBoard.dto.BoardDTO;
 import com.its.memberBoard.dto.CommentDTO;
 import com.its.memberBoard.repository.CommentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,4 +29,9 @@ public class CommentService {
     public int boardId(int id) {
         return commentRepository.boardId(id);
     }
+
+    public void update(CommentDTO commentDTO) {
+        commentRepository.update(commentDTO);
+    }
+
 }

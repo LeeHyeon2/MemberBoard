@@ -6,6 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <link rel="stylesheet" href="/resources/css/bootstrap.min.css">
 <link href="/resources/css/headers.css" rel="stylesheet">
 <html>
@@ -66,8 +67,7 @@
             <form action="/comment/save" method="get" name="commentSave">
                 <input type="hidden" name="commentWriter" value="${sessionScope.loginMemberId}">
                 <input type="hidden" name="boardId" value="${boardDTO.id}">
-                <td><textarea name="commentContents" id="contents" cols="100" rows="5" placeholder="댓글을 달아주세요."></textarea>
-                    <input class="btn btn-primary" type="button" onclick="comment()" value="등록"></td>
+                <td><textarea name="commentContents" id="contents" cols="100" rows="5" placeholder="로그인이 필요한 서비스입니다.." readonly></textarea>
             </form>
         </tr>
         <c:if test="${commentList.size() != 0}">

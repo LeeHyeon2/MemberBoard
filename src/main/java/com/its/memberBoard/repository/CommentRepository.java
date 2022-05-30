@@ -1,5 +1,6 @@
 package com.its.memberBoard.repository;
 
+import com.its.memberBoard.dto.BoardDTO;
 import com.its.memberBoard.dto.CommentDTO;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,4 +28,9 @@ public class CommentRepository {
     public int boardId(int id) {
         return sql.selectOne("Comment.boardId",id);
     }
+
+    public void update(CommentDTO commentDTO) {
+        sql.update("Comment.update",commentDTO);
+    }
+
 }

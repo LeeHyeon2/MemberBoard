@@ -66,12 +66,24 @@
                 <th>작성 시간 : ${comment.commentCreatedDate}</th>
             </tr>
             <tr>
-                <th>댓글내용 : <input type="text" style="border:none" value="${comment.commentContents}"></th>
-                <td></td>
+
+                <c:if test="${sessionScope.loginMemberId ne boardDTO.boardWriter}">
+                    <th>댓글내용 : <input type="text" style="border:none" value="${comment.commentContents}" readonly></th>
+                    <td></td>
+                </c:if>
                 <c:if test="${sessionScope.loginMemberId eq boardDTO.boardWriter}">
-                    <c:if test="${sessionScope.loginMemberId eq comment.commentWriter}">
-                        <td><input type="button" value="수정"></td>
+                    <c:if test="${sessionScope.loginMemberId ne comment.commentWriter}">
+                        <th>댓글내용 : <input type="text" style="border:none"  value="${comment.commentContents}" name="commentContents" readonly></th>
+                        <td></td>
                     </c:if>
+                    <form action="/comment/update" method="get">
+                        <input type="hidden" name="id" value="${comment.id}">
+                    <c:if test="${sessionScope.loginMemberId eq comment.commentWriter}">
+                        <th>댓글내용 : <input type="text" value="${comment.commentContents}" name="commentContents"></th>
+                            <td></td>
+                            <td><input type="submit" onclick="commentUpdate()" value="수정"></td>
+                    </c:if>
+                    </form>
                     <td><input type="button" value="삭제" onclick="commentDelete(${comment.id})"></td>
                 </c:if>
             </tr>
@@ -105,6 +117,10 @@
     const commentDelete = (i) => {
       alert("댓글이 삭제되었습니다.");
       location.href = "/comment/delete?id=" + i;
+    }
+
+    const commentUpdate = () => {
+        alert("수정완료")
     }
 </script>
 </html>

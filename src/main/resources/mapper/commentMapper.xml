@@ -20,4 +20,8 @@
     <select id="boardId" parameterType="int" resultType="int">
         select boardId from memberBoard_comment where id = #{id}
     </select>
+
+    <update id="update" parameterType="comment">
+        update memberBoard_comment set commentContents = #{commentContents} where id = #{id}
+    </update>
 </mapper>

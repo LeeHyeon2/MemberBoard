@@ -31,4 +31,11 @@ public class CommentController {
         return "redirect:/board/detail?id=" + boardId ;
     }
 
+    @GetMapping("/update")
+    public String updateForm(@ModelAttribute CommentDTO commentDTO){
+        int boardId = commentService.boardId(commentDTO.getId());
+        commentService.update(commentDTO);
+
+        return "redirect:/board/detail?id=" + boardId;
+    }
 }
