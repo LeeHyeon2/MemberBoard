@@ -14,25 +14,27 @@
     <script src="/resources/jquery/jquery.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <style>
-        input{
-            display: block;
-        }
+
     </style>
     <title>Title</title>
 </head>
 <body>
 <jsp:include page="../layout/mainHeader.jsp" flush="false"></jsp:include>
 <div class="container">
-    <h2>글쓰기</h2>
+    <table class="table">
+        <tr><th>글 작성</th></tr>
         <form action="/board/save" method="post" name="saveForm" enctype="multipart/form-data">
-            <input type="text" id="writerName" value="${sessionScope.loginMemberName}" readonly>
-            <input type="text" name="boardWriter" id="boardWriter" value="${sessionScope.loginMemberId}" readonly>
-            <input type="text" name="boardTitle" id="boardTitle" placeholder="제목">
-            <textarea name="boardContents" id="boardContents" rows="5" cols="10" placeholder="내용"></textarea>
-            <div>첨부파일</div>
-            <input type="file" name="boardFile">
-            <input type="button" value="제출" onclick="save()">
+            <tr><th>작성자  <input style="border:none" type="text" id="writerName" value="${sessionScope.loginMemberName}" readonly></th></tr>
+            <tr><th>ID  <input style="border:none" type="text" name="boardWriter" id="boardWriter" value="${sessionScope.loginMemberId}" readonly></th></tr>
+
+            <tr><th>제목 입력</th></tr>
+            <tr><td><input type="text" name="boardTitle" id="boardTitle" placeholder="제목"></td></tr>
+            <tr><th>내용 입력</th></tr>
+            <tr><td><textarea name="boardContents" id="boardContents" rows="5" cols="50" placeholder="내용"></textarea></td></tr>
+            <tr><th colspan="2">첨부파일 <br> <input type="file" name="boardFile"> </th></tr>
+            <tr><th><input class="btb btn-primary" type="button" value="제출" onclick="save()"></th></tr>
         </form>
+    </table>
 </div>
 </body>
 <script>

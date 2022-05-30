@@ -5,5 +5,6 @@
     <typeAliases>
         <typeAlias type="com.its.memberBoard.dto.MemberDTO" alias="member"></typeAlias>
         <typeAlias type="com.its.memberBoard.dto.BoardDTO" alias="board"></typeAlias>
+        <typeAlias type="com.its.memberBoard.dto.CommentDTO" alias="comment"></typeAlias>
     </typeAliases>
 </configuration>

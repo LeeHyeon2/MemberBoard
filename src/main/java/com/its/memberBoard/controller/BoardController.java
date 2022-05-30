@@ -1,8 +1,10 @@
 package com.its.memberBoard.controller;
 
 import com.its.memberBoard.dto.BoardDTO;
+import com.its.memberBoard.dto.CommentDTO;
 import com.its.memberBoard.dto.PageDTO;
 import com.its.memberBoard.service.BoardService;
+import com.its.memberBoard.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,6 +19,8 @@ import java.util.List;
 public class BoardController {
     @Autowired
     public BoardService boardService;
+    @Autowired
+    public CommentService commentService;
 
 
     @GetMapping("/save")
@@ -56,6 +60,14 @@ public class BoardController {
     public String detail(@RequestParam("id") int id , Model model ,HttpSession session){
         BoardDTO boardDTO = boardService.findById(id);
         model.addAttribute("boardDTO",boardDTO);
+        List<CommentDTO> commentDTO = commentService.findAll(id);
+        model.addAttribute("commentList",commentDTO);
+
+
+
+
+
+
         String sessionCheck = (String) session.getAttribute("loginMemberId");
         if(sessionCheck == null){
             return "detail";

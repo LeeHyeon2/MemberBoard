@@ -47,6 +47,42 @@
         <input class="btn btn-primary" type="button" onclick="delete1()" value="삭제">
     </c:if>
 </div>
+<br><br><br>
+<div class="container">
+    <table class="table">
+        <tr><th>댓글 작성</th></tr>
+        <tr>
+            <form action="/comment/save" method="get" name="commentSave">
+                <input type="hidden" name="commentWriter" value="${sessionScope.loginMemberId}">
+                <input type="hidden" name="boardId" value="${boardDTO.id}">
+                <td><textarea name="commentContents" id="contents" cols="100" rows="5" placeholder="댓글을 달아주세요."></textarea>
+                    <input class="btn btn-primary" type="button" onclick="comment()" value="등록"></td>
+            </form>
+        </tr>
+        <c:if test="${commentList.size() != 0}">
+        <c:forEach items="${commentList}" var="comment">
+            <tr>
+                <th>작성자 : ${comment.commentWriter}</th>
+                <th>작성 시간 : ${comment.commentCreatedDate}</th>
+            </tr>
+            <tr>
+                <th>댓글내용 : <input type="text" style="border:none" value="${comment.commentContents}"></th>
+                <td></td>
+                <c:if test="${sessionScope.loginMemberId eq boardDTO.boardWriter}">
+                    <c:if test="${sessionScope.loginMemberId eq comment.commentWriter}">
+                        <td><input type="button" value="수정"></td>
+                    </c:if>
+                    <td><input type="button" value="삭제" onclick="commentDelete(${comment.id})"></td>
+                </c:if>
+            </tr>
+        </c:forEach>
+        </c:if>
+    </table>
+    <c:if test="${commentList.size() == 0}">
+        <div>등록된 댓글이 없습니다.</div>
+    </c:if>
+</div>
+
 </body>
 <script>
     function update(){
@@ -56,6 +92,19 @@
     function delete1(){
         alert("글이 삭제되었습니다!")
         location.href = "/board/delete?id="+'${boardDTO.id}';
+    }
+    function comment(){
+        let contents = document.getElementById("contents").value;
+        if(contents == ""){
+            alert("댓글내용을 입력해주세요!!")
+        }else{
+            commentSave.submit();
+            alert("댓글이 등록되었습니다!!")
+        }
+    }
+    const commentDelete = (i) => {
+      alert("댓글이 삭제되었습니다.");
+      location.href = "/comment/delete?id=" + i;
     }
 </script>
 </html>

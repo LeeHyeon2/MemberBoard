@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="Comment">
+    <insert id="save" parameterType="comment">
+        insert into memberBoard_comment(commentWriter,commentContents,boardId,commentCreatedDate)
+        values (#{commentWriter} , #{commentContents},#{boardId},now())
+    </insert>
+
+    <select id="findAll" parameterType="int" resultType="comment">
+        select * from memberBoard_comment where boardId = #{id} order by id desc
+    </select>
+
+    <delete id="delete" parameterType="int">
+        delete from memberBoard_comment where id = #{id}
+    </delete>
+
+    <select id="boardId" parameterType="int" resultType="int">
+        select boardId from memberBoard_comment where id = #{id}
+    </select>
+</mapper>

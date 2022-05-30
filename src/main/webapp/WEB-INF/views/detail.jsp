@@ -59,6 +59,33 @@
     </table>
 </div>
 
+<div class="container">
+    <table class="table">
+        <tr><th>댓글 작성</th></tr>
+        <tr>
+            <form action="/comment/save" method="get" name="commentSave">
+                <input type="hidden" name="commentWriter" value="${sessionScope.loginMemberId}">
+                <input type="hidden" name="boardId" value="${boardDTO.id}">
+                <td><textarea name="commentContents" id="contents" cols="100" rows="5" placeholder="댓글을 달아주세요."></textarea>
+                    <input class="btn btn-primary" type="button" onclick="comment()" value="등록"></td>
+            </form>
+        </tr>
+        <c:if test="${commentList.size() != 0}">
+            <c:forEach items="${commentList}" var="comment">
+                <tr>
+                    <th>작성자 : ${comment.commentWriter}</th>
+                    <th>작성 시간 : ${comment.commentCreatedDate}</th>
+                </tr>
+                <tr>
+                    <th>댓글내용 : <input type="text" style="border:none" value="${comment.commentContents}"></th>
+                </tr>
+            </c:forEach>
+        </c:if>
+    </table>
+    <c:if test="${commentList.size() == 0}">
+        <div>등록된 댓글이 없습니다.</div>
+    </c:if>
+</div>
 </body>
 
 </html>
