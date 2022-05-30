@@ -20,6 +20,9 @@
     <link href="/resources/css/headers.css" rel="stylesheet">
 </head>
 <body>
+<c:if test="${noSearch eq '1'}">
+    <body onload="noSearch()">
+</c:if>
 <div class="container">
     <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
         <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
@@ -33,6 +36,17 @@
             <li class="nav-item"><a href="/board/findAll" class="nav-link">글 목록</a></li>
         </ul>
     </header>
+</div>
+
+<div class="container mt-3">
+    <form action="/board/search" method="get" name="search">
+        <select name="searchType">
+            <option value="boardTitle">제목</option>
+            <option value="boardWriter">작성자</option>
+        </select>
+        <input type="text" name="q" id="searchValue" placeholder="검색어를 입력하세요.">
+        <input style="background-color: #b6d4fe" type="button" onclick="search1()" value="검색">
+    </form>
 </div>
 
 <div class="b-example-divider"></div>
@@ -69,7 +83,7 @@
             <%-- 1페이지가 아닌 경우에는 이전을 클릭하면 현재 페이지보다 1작은페이지요청 --%>
             <c:otherwise>
                 <li class="page-item">
-                    <a class="page-link" href="/board/findAll?page=${paging.page-1}">[이전]</a>
+                    <a class="page-link" href="/board/${page}?page=${paging.page-1}&searchType=${searchType}&q=${q}">[이전]</a>
                 </li>
             </c:otherwise>
         </c:choose>
@@ -84,7 +98,7 @@
                 </c:when>
                 <c:otherwise>
                     <li class="page-item">
-                        <a class="page-link" href="/board/findAll?page=${i}">${i}</a>
+                        <a class="page-link" href="/board/${page}?page=${i}&searchType=${searchType}&q=${q}">${i}</a>
                     </li>
                 </c:otherwise>
             </c:choose>
@@ -97,7 +111,7 @@
             </c:when>
             <c:otherwise>
                 <li class="page-item">
-                    <a class="page-link" href="/board/findAll?page=${paging.page+1}">[다음]</a>
+                    <a class="page-link" href="/board/${page}?page=${paging.page+1}&searchType=${searchType}&q=${q}">[다음]</a>
                 </li>
             </c:otherwise>
         </c:choose>
@@ -105,6 +119,17 @@
 </div>
 </body>
 <script>
-
+    function search1() {
+        let searchValue = document.getElementById("searchValue").value;
+        if(searchValue == ""){
+            alert("검색어를 입력 해 주세요!!")
+        }else {
+            search.submit();
+        }
+    }
+    function noSearch() {
+        alert("검색결과가 없습니다!!")
+        location.href = "/board/findAll";
+    }
 </script>
 </html>

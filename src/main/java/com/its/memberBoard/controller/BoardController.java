@@ -40,6 +40,7 @@ public class BoardController {
         PageDTO paging = boardService.paging(page);
         model.addAttribute("boardList", boardList);
         model.addAttribute("paging", paging);
+        model.addAttribute("page","findAll");
 
         String sessionCheck = (String) session.getAttribute("loginMemberId");
         if(sessionCheck == null){
@@ -83,5 +84,36 @@ public class BoardController {
         System.out.println("boardDTO = " + boardDTO);
         boardService.update(boardDTO);
         return "redirect:/board/findAll";
+    }
+
+    @GetMapping("/search")
+    public String search(@RequestParam("searchType") String searchType,
+                         @RequestParam("q") String q , Model model ,
+                         HttpSession session,@RequestParam(value="page", required=false, defaultValue="1") int page){
+
+        PageDTO paging = boardService.searchPaging(page,searchType,q);
+        model.addAttribute("paging", paging);
+
+        List<BoardDTO> searchList = boardService.search1(searchType,q,page);
+        model.addAttribute("boardList",searchList);
+
+        if(searchList.size() == 0){
+            model.addAttribute("noSearch","1");
+        }else {
+            model.addAttribute("noSearch","0");
+        }
+        String sessionCheck = (String) session.getAttribute("loginMemberId");
+
+            if(sessionCheck == null){
+                model.addAttribute("page","search");
+                model.addAttribute("searchType",searchType);
+                model.addAttribute("q",q);
+                return "findAll";
+            }else if(sessionCheck.equals("admin")){
+                return "/member/adminFindAll";
+            }else{
+                return "/member/myPageFindAll";
+            }
+
     }
 }

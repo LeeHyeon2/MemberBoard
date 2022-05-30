@@ -36,6 +36,16 @@
     <update id="update" parameterType="board">
         update memberBoard_board set boardTitle = #{boardTitle} , boardContents = #{boardContents} where id = #{id}
     </update>
+
+    <select id="search" parameterType="board" resultType="board">
+        select * from memberBoard_board where ${boardWriter} like concat('%', #{boardTitle}, '%') order by id desc limit #{boardHits}, #{id}
+    </select>
+
+    <select id="searchCount" resultType="int">
+        select count(id) from memberBoard_board where ${type} like concat('%', #{q}, '%')
+    </select>
+
+
 </mapper>
 
 

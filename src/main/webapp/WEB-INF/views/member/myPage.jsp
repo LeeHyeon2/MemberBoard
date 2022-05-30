@@ -14,6 +14,5 @@
 </head>
 <body>
 <jsp:include page="../layout/myPageHeader.jsp" flush="false"></jsp:include>
-<h2>내가쓴글띄우기</h2>
 </body>
 </html>

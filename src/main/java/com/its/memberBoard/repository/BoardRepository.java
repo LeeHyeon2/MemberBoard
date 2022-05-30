@@ -40,4 +40,13 @@ public class BoardRepository {
     public void update(BoardDTO boardDTO) {
         sql.update("Board.update",boardDTO);
     }
+
+
+    public int searchCount(Map<String, String> searchParam) {
+        return sql.selectOne("Board.searchCount",searchParam);
+    }
+
+    public List<BoardDTO> searchPagingList(BoardDTO search) {
+        return sql.selectList("Board.search", search);
+    }
 }

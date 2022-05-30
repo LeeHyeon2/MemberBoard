@@ -8,7 +8,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <link rel="stylesheet" href="/resources/css/bootstrap.min.css">
 <html>
 <head>
@@ -21,10 +20,21 @@
     <link href="/resources/css/headers.css" rel="stylesheet">
 </head>
 <body>
-<jsp:include page="../layout/mainHeader.jsp" flush="false"></jsp:include>
-<c:if test="${noSearch eq '1'}">
-<body onload="noSearch()">
-</c:if>
+<div class="container">
+    <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
+        <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
+            <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"/></svg>
+            <span class="fs-4">MemberBoard</span>
+        </a>
+
+        <ul class="nav nav-pills">
+            <li class="nav-item"><a href="/member/save" class="nav-link active" aria-current="page">회원가입</a></li>
+            <li class="nav-item"><a href="/member/login" class="nav-link ">로그인</a></li>
+            <li class="nav-item"><a href="/board/findAll" class="nav-link">글 목록</a></li>
+        </ul>
+    </header>
+</div>
+
 <div class="container mt-3">
     <form action="/board/search" method="get" name="search">
         <select name="searchType">
@@ -57,6 +67,7 @@
         </c:forEach>
     </table>
 </div>
+
 <div class="container">
     <ul class="pagination justify-content-center">
         <c:choose>
@@ -69,7 +80,7 @@
             <%-- 1페이지가 아닌 경우에는 이전을 클릭하면 현재 페이지보다 1작은페이지요청 --%>
             <c:otherwise>
                 <li class="page-item">
-                    <a class="page-link" href="/board/findAll?page=${paging.page-1}&searchType=${searchType}&q=${q}">[이전]</a>
+                    <a class="page-link" href="/board/findAll?page=${paging.page-1}">[이전]</a>
                 </li>
             </c:otherwise>
         </c:choose>
@@ -84,7 +95,7 @@
                 </c:when>
                 <c:otherwise>
                     <li class="page-item">
-                        <a class="page-link" href="/board/findAll?page=${i}&searchType=${searchType}&q=${q}">${i}</a>
+                        <a class="page-link" href="/board/findAll?page=${i}">${i}</a>
                     </li>
                 </c:otherwise>
             </c:choose>
@@ -97,7 +108,7 @@
             </c:when>
             <c:otherwise>
                 <li class="page-item">
-                    <a class="page-link" href="/board/findAll?page=${paging.page+1}&searchType=${searchType}&q=${q}">[다음]</a>
+                    <a class="page-link" href="/board/findAll?page=${paging.page+1}">[다음]</a>
                 </li>
             </c:otherwise>
         </c:choose>
@@ -112,10 +123,6 @@
         }else {
             search.submit();
         }
-    }
-    function noSearch() {
-        alert("검색결과가 없습니다!!")
-        location.href = "/board/findAll";
     }
 </script>
 </html>

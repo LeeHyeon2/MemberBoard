@@ -76,4 +76,37 @@ public class BoardService {
     public void update(BoardDTO boardDTO) {
         boardRepository.update(boardDTO);
     }
+
+    public List<BoardDTO> search1(String searchType, String q ,int page) {
+        int pagingStart = (page-1) * PAGE_LIMIT;
+        // 4개의 값을 담아가기 위해 DTO에 담기
+        BoardDTO search = new BoardDTO() ;
+        search.setBoardWriter(searchType); // type
+        search.setBoardTitle(q); // q
+        search.setBoardHits(pagingStart); // start
+        search.setId(PAGE_LIMIT); // limit
+
+        List<BoardDTO> searchList = boardRepository.searchPagingList(search);
+        return searchList;
+    }
+
+
+    public PageDTO searchPaging(int page , String searchType , String q) {
+        // 필요한 전체 페이지의 갯수
+        Map<String,String> searchParam = new HashMap<>();
+        searchParam.put("type",searchType);
+        searchParam.put("q",q);
+        int boardCount = boardRepository.searchCount(searchParam);
+        int maxPage = (int)(Math.ceil((double)boardCount / PAGE_LIMIT));
+        int startPage = (((int)(Math.ceil((double)page / BLOCK_LIMIT))) - 1) * BLOCK_LIMIT + 1;
+        int endPage = startPage + BLOCK_LIMIT - 1;
+        if(endPage > maxPage)
+            endPage = maxPage;
+        PageDTO paging = new PageDTO();
+        paging.setPage(page);
+        paging.setStartPage(startPage);
+        paging.setEndPage(endPage);
+        paging.setMaxPage(maxPage);
+        return paging;
+    }
 }
